@@ -5,7 +5,7 @@ interface Repo {
   name: string;
   language: string | null;
   pushed_at: string;
-  url: string;
+  html_url: string;
 }
 
 function Github() {
@@ -26,27 +26,31 @@ function Github() {
     return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
   });
 
+  console.log('sortedRepos', sortedRepos);
+
   return (
-    <section>
-      <div>
-        <h2>Github</h2>
-        <div className="grid grid-cols-3 gap-4">
+    <section className="mt-8">
+      <div className="grid grid-cols-3 gap-4">
+        {
+          sortedRepos?.map(repo => {
+            const { language, name, pushed_at, html_url } = repo;
 
-          {
-            sortedRepos?.map(repo => {
-              const { language, name, pushed_at, url } = repo;
-
-              return (
-                <div className="border-gray-300 p-2 border-2 rounded-md" key={name}>
-                  <h3 className="text-xl">{name}</h3>
-                  <p>Language: {language}</p>
-                  <p>Updated at: {new Date(pushed_at).toLocaleDateString()}</p>
-                  <a href={url} target="_blank" rel="noopener noreferrer">Repository Link</a>
+            return (
+              <div className="border-gray-300 p-2 border-2 rounded-md" key={name}>
+                <h3 className="text-lg font-bold">{name}</h3>
+                <div className="mt-1">
+                  <div className="text-gray-600">Language</div>
+                  <div className="font-bold text-indigo-600">{language}</div>
                 </div>
-              );
-            })
-          }
-        </div>
+                <div className="mt-1">
+                  <div className="text-gray-600">Pushed at</div>
+                  <div className="font-bold text-indigo-600">{new Date(pushed_at).toLocaleDateString()}</div>
+                </div>
+                {html_url && <a href={html_url} target="_blank" rel="noopener noreferrer">Repo</a>}
+              </div>
+            );
+          })
+        }
       </div>
     </section>
   )

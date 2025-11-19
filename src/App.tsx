@@ -1,6 +1,7 @@
 
 import './App.css'
 import Github from './components/Github'
+import Hero from './components/Hero'
 import Nav from './components/Nav'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
       <Nav />
       <main className="App mx-auto container px-4">
+        <Hero />
         <Github />
       </main>
     </>
