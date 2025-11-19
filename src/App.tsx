@@ -1,14 +1,15 @@
 
 import './App.css'
 import Github from './components/Github'
+import Nav from './components/Nav'
 
 function App() {
   return (
     <>
-      <div>
-        <h2>Hello World</h2>
+      <Nav />
+      <main className="App mx-auto container px-4">
         <Github />
-      </div>
+      </main>
     </>
   )
 }

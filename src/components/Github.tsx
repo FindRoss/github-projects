@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 interface Repo {
   name: string;
   language: string | null;
-  published_at: string;
   pushed_at: string;
   url: string;
 }
@@ -31,24 +30,26 @@ function Github() {
     <section>
       <div>
         <h2>Github</h2>
-        {
-          sortedRepos?.map(repo => {
-            const { language, name, published_at, pushed_at, url } = repo;
+        <div className="grid grid-cols-3 gap-4">
 
-            return (
-              <div key={name}>
-                <h3>{name}</h3>
-                <p>Language: {language}</p>
-                <p>Published at: {new Date(published_at).toLocaleDateString()}</p>
-                <p>Updated at: {new Date(pushed_at).toLocaleDateString()}</p>
-                <a href={url} target="_blank" rel="noopener noreferrer">Repository Link</a>
-              </div>
-            );
-          })
-        }
+          {
+            sortedRepos?.map(repo => {
+              const { language, name, pushed_at, url } = repo;
+
+              return (
+                <div className="border-gray-300 p-2 border-2 rounded-md" key={name}>
+                  <h3 className="text-xl">{name}</h3>
+                  <p>Language: {language}</p>
+                  <p>Updated at: {new Date(pushed_at).toLocaleDateString()}</p>
+                  <a href={url} target="_blank" rel="noopener noreferrer">Repository Link</a>
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
     </section>
   )
-}
+};
 
 export default Github
