@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { FaGithub } from "react-icons/fa";
 
 interface Repo {
   name: string;
@@ -37,16 +38,22 @@ function Github() {
 
             return (
               <div className="border-gray-300 p-2 border-2 rounded-md" key={name}>
-                <h3 className="text-lg font-bold">{name}</h3>
-                <div className="mt-1">
-                  <div className="text-gray-600">Language</div>
-                  <div className="font-bold text-indigo-600">{language}</div>
-                </div>
-                <div className="mt-1">
-                  <div className="text-gray-600">Pushed at</div>
-                  <div className="font-bold text-indigo-600">{new Date(pushed_at).toLocaleDateString()}</div>
-                </div>
-                {html_url && <a href={html_url} target="_blank" rel="noopener noreferrer">Repo</a>}
+                <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">{<FaGithub />} {name}</h3>
+                {language && (
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="text-base/7 font-semibold text-gray-600">Language:</div>
+                    <div className="text-base/7 text-gray-900">{language}</div>
+                  </div>
+                )
+                }
+                {pushed_at &&
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="text-base/7 font-semibold text-gray-600">Pushed at</div>
+                    <div className="text-base/7 text-gray-900">{new Date(pushed_at).toLocaleDateString()}</div>
+                  </div>
+                }
+
+                {html_url && <a href={html_url} className="mt-4 flex text-blue-600 hover:text-blue-700 underline underline-offset-2" target="_blank" rel="noopener noreferrer">View on GitHub</a>}
               </div>
             );
           })
