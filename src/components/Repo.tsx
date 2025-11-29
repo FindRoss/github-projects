@@ -38,7 +38,7 @@ const Repo = ({ repo }: RepoProps) => {
 
         {pushed_at && (
           <div className="text-sm text-gray-600">
-            Last updated: {new Date(pushed_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            Pushed at: {new Date(pushed_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
           </div>
         )}
 

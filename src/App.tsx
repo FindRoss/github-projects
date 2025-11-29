@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       <Nav />
-      <main className="App mx-auto container px-4">
-        <Hero />
+      <Hero />
+      <main className="mx-auto container px-4">
         <Repos />
       </main>
     </>

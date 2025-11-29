@@ -2,15 +2,15 @@ import { FaGithubSquare } from "react-icons/fa"
 
 function Hero() {
   return (
-    <div className="relative bg-linear-to-b from-white to-gray-50 py-24 sm:py-32 rounded-lg">
+    <div className="relative bg-linear-to-b from-white to-gray-50 py-12 sm:py-16 rounded-lg">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
-        <div className="space-y-8 lg:text-center">
-          <div className="flex items-center justify-center gap-2 lg:justify-center">
+        <div className="space-y-4 lg:text-center">
+          <div className="flex items-center justify-start gap-1 lg:justify-center">
             <FaGithubSquare className="h-5 w-5 text-indigo-600" />
             <h2 className="text-sm font-semibold uppercase tracking-widest text-indigo-600">GitHub Repositories</h2>
           </div>
           <div>
-            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               See everything users are building
             </h1>
           </div>
