@@ -8,8 +8,8 @@ interface RepoProps {
 
 const languageIcons: Record<string, React.ReactNode> = {
   TypeScript: <SiTypescript className="h-5 w-5 text-blue-600" />,
-  JavaScript: <SiJavascript className="h-5 w-5 text-yellow-500" />,
-  Python: <SiPython className="h-5 w-5 text-blue-400" />,
+  JavaScript: <SiJavascript className="h-5 w-5  text-yellow-400" />,
+  Python: < SiPython className="h-5 w-5 text-blue-400" />,
   React: <SiReact className="h-5 w-5 text-cyan-400" />,
   Vue: <SiVuedotjs className="h-5 w-5 text-green-500" />,
   Go: <SiGo className="h-5 w-5 text-cyan-500" />,
@@ -21,8 +21,7 @@ const languageIcons: Record<string, React.ReactNode> = {
 };
 
 const Repo = ({ repo }: RepoProps) => {
-
-  const { language, name, pushed_at, html_url } = repo;
+  const { language, name, description, pushed_at, html_url } = repo;
 
   return (
     <div className="border border-gray-200 p-6 rounded-lg" key={name}>
@@ -36,11 +35,19 @@ const Repo = ({ repo }: RepoProps) => {
           </div>
         )}
 
+        {description && (
+          <div className="text-sm text-gray-600">
+            {description}
+          </div>
+        )}
+
         {pushed_at && (
           <div className="text-sm text-gray-600">
             Pushed at: {new Date(pushed_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
           </div>
         )}
+
+
 
         {html_url && (
           <a

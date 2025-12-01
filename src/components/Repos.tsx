@@ -4,11 +4,13 @@ import Repo from './Repo';
 import { getUserRepos } from '../api/getUserRepos'
 import type { Repository } from '../types/repository';
 import Loading from './Loading';
+import UserCard from './UserCard';
 
 function Repos() {
   const [username, setUsername] = useState('findross');
   const [inputValue, setInputValue] = useState('');
-  const [sortValue, setSortValue] = useState('');
+  const [sortValue, setSortValue] = useState('pushed');
+  const [order, setOrder] = useState('desc');
   const [perPage] = useState(6);
 
   const sortByOptions = [
@@ -18,9 +20,14 @@ function Repos() {
     { 'value': 'full_name', 'label': 'Full name' },
   ]
 
+  const orderOptions = [
+    { 'value': 'asc', 'label': 'ASC' },
+    { 'value': 'desc', 'label': 'DESC' }
+  ]
+
   const { data, isLoading, error } = useQuery<Repository[]>({
-    queryKey: ['repos', username, sortValue],
-    queryFn: () => getUserRepos(username, sortValue, perPage)
+    queryKey: ['repos', username, sortValue, order],
+    queryFn: () => getUserRepos(username, sortValue, order, perPage)
   });
 
   if (error) return <div>An error has occurred: {error.message}</div>
@@ -42,7 +49,7 @@ function Repos() {
         <input
           required
           type="text"
-          placeholder="Search for your own repository on Github.com"
+          placeholder="Search your username on Github.com"
           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
           value={inputValue}
           onChange={handleInputChange}
@@ -55,41 +62,46 @@ function Repos() {
         </button>
       </form>
 
-      <div className="mt-2">
-        <select
-          id="repo-selector"
-          required
-          value={sortValue}
-          onChange={(e) => setSortValue(e.target.value)}
-          className="appearance-none text-sm bg-white border border-gray-300 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent cursor-pointer"
-        >
-          <option value={sortByOptions[0].value} className="text-gray-400">{sortByOptions[0].label}</option>
-          {sortByOptions.slice(1).map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+      <div className="flex gap-1 mt-2">
 
-        <select
-          id="repo-selector"
-          required
-          value={sortValue}
-          onChange={(e) => setSortValue(e.target.value)}
-          className="appearance-none text-sm bg-white border border-gray-300 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent cursor-pointer"
-        >
-          <option value={sortByOptions[0].value} className="text-gray-400">{sortByOptions[0].label}</option>
-          {sortByOptions.slice(1).map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        <div>
+          <select
+            id="repo-selector"
+            required
+            value={sortValue}
+            onChange={(e) => setSortValue(e.target.value)}
+            className="appearance-none text-sm bg-white border border-gray-300 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent cursor-pointer"
+          >
+            <option value={sortByOptions[0].value} className="text-gray-400">{sortByOptions[0].label}</option>
+            {sortByOptions.slice(1).map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <select
+            id="repo-selector"
+            required
+            value={order}
+            onChange={(e) => setOrder(e.target.value)}
+            className="appearance-none text-sm bg-white border border-gray-300 px-3 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent cursor-pointer"
+          >
+            <option value={orderOptions[0].value} className="text-gray-400">{orderOptions[0].label}</option>
+            {orderOptions.slice(1).map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-
-
       {isLoading ?? <Loading />}
+
+      {data && data.length > 0 && <UserCard user={data[0].owner} />}
 
       <div className="flex flex-col lg:grid grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
         {

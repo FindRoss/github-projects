@@ -14,7 +14,7 @@ function Hero() {
               See everything users are building
             </h1>
           </div>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600 leading-8">
+          <p className="mx-auto max-w-3xl text-lg text-gray-600 leading-8">
             View my repositories on GitHub or instead search for your own GitHub repo with your username, and view your own.
           </p>
         </div>

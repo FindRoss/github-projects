@@ -1,12 +1,11 @@
 export async function getUserRepos(
   username: string = "",
   sortValue: string = "",
+  order: string = "desc",
   perPage: number = 6
 ) {
-  console.log('hello from the api folder');
-
   const res = await fetch(
-    `https://api.github.com/users/${username}/repos?per_page=${perPage}&sort=${sortValue}&direction=desc`
+    `https://api.github.com/users/${username}/repos?per_page=${perPage}&sort=${sortValue}&direction=${order}`
   );
 
   if (!res.ok) {
